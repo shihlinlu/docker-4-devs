@@ -1,0 +1,18 @@
+# base image; alpine-node contains both Node.js and NPM so smaller image footprint
+FROM mhart/alpine-node:6.9.2
+
+# set working directory
+WORKDIR /var/app
+
+# copy contents of current local directory "." to the specified location
+COPY . /var/app
+
+RUN npm install --production
+
+# expose port
+EXPOSE 3000
+
+ENV NODE_ENV=production
+
+# start express server
+CMD ["node", "bin/www”]
